@@ -1,0 +1,85 @@
+FT600 Data Display - Data Format Testing Guide
+================================================
+
+Your ft600_display.exe is ready! Since the sine wave isn't displaying correctly,
+use these keyboard controls to find the correct data format combination.
+
+CRITICAL TESTING KEYS:
+----------------------
+E key - Toggle Endianness (Little/Big Endian)
+D key - Toggle bit width (12-bit / 16-bit signed)
+B key - Toggle 12-bit alignment (High bits 15-4 / Low bits 11-0)
+
+TESTING PROCEDURE:
+------------------
+1. Run: ft600_display.exe
+
+2. Check data range first (shown on right side as "Data: Min=X Max=Y Avg=Z")
+   - If 12-bit: should be roughly -2048 to +2047
+   - If 16-bit: could be -32768 to +32767
+
+3. Test these 8 combinations systematically:
+
+   Combination 1: Little-Endian + 12-bit Low bits (11-0)  [DEFAULT]
+   Combination 2: Little-Endian + 12-bit High bits (15-4) [Press B]
+   Combination 3: Little-Endian + 16-bit signed           [Press D]
+   Combination 4: Big-Endian + 12-bit Low bits            [Press E]
+   Combination 5: Big-Endian + 12-bit High bits           [Press E+B]
+   Combination 6: Big-Endian + 16-bit signed              [Press E+D]
+   Combination 7: Try other combinations as needed
+
+4. For each combination, check if waveform looks like a sine wave
+
+DISPLAY CONTROLS:
+-----------------
+SPACE   - Pause/Resume data capture
+F       - Auto-fit Y-axis to current data range
+W/S     - Manual Y-axis zoom (in/out)
+T       - Cycle trigger mode (OFF/RISING/FALLING/AUTO)
+R       - Reset buffer and re-trigger
+L/R     - Adjust trigger level (left/right arrows)
+UP/DOWN - Adjust sample rate (more/less detail)
+
+PRESETS:
+--------
+1-4 keys: Sample rate presets (1=all samples, 2=1/10, 3=1/100, 4=1/1000)
+5-8 keys: Y-scale presets (5=±4096, 6=±2048, 7=±1024, 8=±512)
+
+DISPLAY INFORMATION:
+--------------------
+Top Right: Current format settings, speed, data statistics
+Bottom: Control instructions
+Red Warning: "Data clipped" means Y-scale is too small (press F to auto-fit)
+
+TYPICAL ADC DATA FORMATS:
+--------------------------
+Most ADCs use one of these:
+- 12-bit in LOW bits (11-0): Common for older ADCs
+- 12-bit in HIGH bits (15-4): Common for modern ADCs (left-aligned)
+- 16-bit signed: Full 16-bit ADCs
+
+EXPECTED SINE WAVE:
+-------------------
+A proper sine wave should:
+- Oscillate smoothly above and below zero line
+- Have symmetric positive and negative peaks
+- Show smooth curves, not jagged lines (adjust sample rate if needed)
+
+TROUBLESHOOTING:
+----------------
+If waveform still doesn't look correct after trying all combinations:
+1. Check FPGA data output format documentation
+2. Verify USB data is actually a sine wave (check with oscilloscope/logic analyzer)
+3. Check if data has any headers or framing bytes
+4. Verify expected data rate matches actual rate
+
+DEFAULT SETTINGS:
+-----------------
+- Endianness: Little-Endian
+- Bit Width: 12-bit signed
+- Alignment: Low bits (11-0)
+- Y-Scale: ±4096
+- Trigger: AUTO mode
+- Trigger Level: 0
+
+Once you find the correct combination, note which keys you pressed!

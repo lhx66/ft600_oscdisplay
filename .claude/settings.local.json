@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Read(//e/software/PainterEngine-master/**)",
+      "Bash(make clean:*)",
+      "Bash(make:*)",
+      "Bash(gcc:*)",
+      "Bash(./ft600_speed_test.exe:*)",
+      "Bash(timeout:*)",
+      "Bash(find:*)",
+      "Bash(./ft600_display.exe)",
+      "Bash(if exist ft600_display.o del ft600_display.o)",
+      "Bash(del /Q ft600_display.o)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
